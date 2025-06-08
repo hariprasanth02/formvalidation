@@ -1,0 +1,43 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 130%;
+}
+.wrapper{
+    width: 550px;
+    margin: 0 auto;
+}
+label{
+    width: 200px;
+    float: left;
+    position: relative;
+    top: 12px;
+}
+input{
+    width: 320px;
+    font-size: 25px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding:5px 5px 12px 5px ;
+}
+.formelement{
+    margin-bottom: 10px;
+}
+#submitbutton{
+    width: 130px;
+    margin-left: 200px;
+}
+#errors {
+    color: white;
+    background-color: red;
+    padding: 10px;
+    border-radius: 5px;
+    display: none; /* Hide initially */
+}
+
+#success {
+    color: white;
+    background-color: green;
+    padding: 10px;
+    border-radius: 5px;
+    display: none; /* Hide initially */
+}
