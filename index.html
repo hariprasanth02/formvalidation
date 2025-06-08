@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show/Hide Password</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="errors"></div>
+    <div id="success"></div>
+    <div class="wrapper">
+        <div class="formelement">
+            <label for="Email">Email</label>
+            <input type="text" id="Email" name="Email">
+        </div>
+
+        <div class="formelement">
+            <label for="phoneno">Phone-Number</label>
+            <input type="text" id="phoneno" name="phoneno">
+        </div>
+
+        <div class="formelement">
+            <label for="password">Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="password" name="password">
+                <button type="button" id="togglePassword">Show</button>
+            </div>
+        </div>
+
+        <div class="formelement">
+            <label for="confirmpassword">Confirm-Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="confirmpassword" name="confirmpassword">
+                <button type="button" id="toggleConfirmPassword">Show</button>
+            </div>
+        </div>
+
+        <input id="submitbutton" type="submit">
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
