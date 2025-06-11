@@ -1,13 +1,24 @@
-var errormessage = [];
-var missingFields = [];
-var startTime, endTime;
+let errormessage = [];
+let missingFields = [];
+let startTime, endTime;
 
+// Email validation regex
 function isEmail(email) {
     var regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     return regex.test(email);
 }
 
 $(document).ready(function () {
+    // Restrict phone input to digits only (max 10)
+    $("#phoneno").on("input", function () {
+        let value = $(this).val().replace(/\D/g, "");
+        if (value.length > 10) {
+            value = value.slice(0, 10);
+        }
+        $(this).val(value);
+    });
+
+    // Show/hide password fields
     $("#togglePassword").click(function () {
         toggleVisibility("#password", this);
     });
@@ -16,13 +27,15 @@ $(document).ready(function () {
         toggleVisibility("#confirmpassword", this);
     });
 
-    $("#submitbutton").click(function() {
-        startTime = performance.now(); // Start timing
+    // Form submit event
+    $("#userForm").on("submit", function (e) {
+        e.preventDefault();
+        startTime = performance.now();
 
         validateForm();
 
-        endTime = performance.now(); // Stop timing
-        var reactionTime = (endTime - startTime).toFixed(2); // Calculate reaction time
+        endTime = performance.now();
+        var reactionTime = (endTime - startTime).toFixed(2);
 
         displayMessages(reactionTime);
     });
@@ -39,41 +52,45 @@ function validateForm() {
     errormessage = [];
     missingFields = [];
 
-    // Check required fields
-    if ($("#Email").val().trim() === "") {
-        missingFields.push("Email is required.");
-    }
-    if (!/^\d{10}$/.test($("#phoneno").val())) {
-        missingFields.push("Phone number must be exactly 10 digits.");
-    }
-    if ($("#password").val().trim() === "") {
-        missingFields.push("Password is required.");
-    }
+    const email = $("#Email").val().trim();
+    const phone = $("#phoneno").val().trim();
+    const password = $("#password").val();
+    const confirmPassword = $("#confirmpassword").val();
 
-    // Validate email format
-    if (!isEmail($("#Email").val().trim())) {
+    // Required fields
+    if (email === "") missingFields.push("Email is required.");
+    if (phone === "") missingFields.push("Phone number is required.");
+    if (password === "") missingFields.push("Password is required.");
+    if (confirmPassword === "") missingFields.push("Confirm Password is required.");
+
+    // Email format
+    if (email && !isEmail(email)) {
         errormessage.push("Invalid email format.");
     }
 
-    // Validate password strength
-    var password = $("#password").val();
+    // Phone format
+    if (phone && !/^\d{10}$/.test(phone)) {
+        errormessage.push("Phone number must be exactly 10 digits.");
+    }
+
+    // Password strength
     var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    if (!passwordRegex.test(password)) {
+    if (password && !passwordRegex.test(password)) {
         errormessage.push("Password must be at least 8 characters, include an uppercase, lowercase, and a number.");
     }
 
-    // Validate password confirmation
-    if ($("#password").val() !== $("#confirmpassword").val()) {
+    // Password match
+    if (password && confirmPassword && password !== confirmPassword) {
         errormessage.push("Passwords do not match.");
     }
 }
 
 function displayMessages(reactionTime) {
+    $("#errors, #success").stop(true, true).fadeOut(0); // Clear previous messages
+
     if (errormessage.length === 0 && missingFields.length === 0) {
-        $("#errors").hide();
         $("#success").html(`✅ You are registered! Reaction time: ${reactionTime} ms`).fadeIn();
     } else {
-        $("#success").hide();
         $("#errors").html([...errormessage, ...missingFields].map(msg => `<p>${msg}</p>`).join("")).fadeIn();
     }
 }
