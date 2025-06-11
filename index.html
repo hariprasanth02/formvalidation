@@ -3,42 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show/Hide Password</title>
+    <title>Form Validation</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="errors"></div>
     <div id="success"></div>
+
     <div class="wrapper">
-        <div class="formelement">
-            <label for="Email">Email</label>
-            <input type="text" id="Email" name="Email">
-        </div>
-
-        <div class="formelement">
-            <label for="phoneno">Phone-Number</label>
-            <input type="text" id="phoneno" name="phoneno">
-        </div>
-
-        <div class="formelement">
-            <label for="password">Password</label>
-            <div class="password-wrapper">
-                <input type="password" id="password" name="password">
-                <button type="button" id="togglePassword">Show</button>
+        <form id="userForm">
+            <div class="formelement">
+                <label for="Email">Email</label>
+                <input type="text" id="Email" name="Email" placeholder="user@example.com" required>
             </div>
-        </div>
 
-        <div class="formelement">
-            <label for="confirmpassword">Confirm-Password</label>
-            <div class="password-wrapper">
-                <input type="password" id="confirmpassword" name="confirmpassword">
-                <button type="button" id="toggleConfirmPassword">Show</button>
+            <div class="formelement">
+                <label for="phoneno">Phone Number</label>
+                <input 
+                    type="text" 
+                    id="phoneno" 
+                    name="phoneno" 
+                    maxlength="10" 
+                    pattern="\d{10}" 
+                    inputmode="numeric" 
+                    placeholder="Enter 10-digit phone number" 
+                    title="Enter exactly 10 digits" 
+                    required>
             </div>
-        </div>
 
-        <input id="submitbutton" type="submit">
+            <div class="formelement">
+                <label for="password">Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" name="password" required>
+                    <button type="button" id="togglePassword">Show</button>
+                </div>
+            </div>
+
+            <div class="formelement">
+                <label for="confirmpassword">Confirm Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="confirmpassword" name="confirmpassword" required>
+                    <button type="button" id="toggleConfirmPassword">Show</button>
+                </div>
+            </div>
+
+            <input id="submitbutton" type="submit" value="Submit">
+        </form>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
